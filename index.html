@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harika Sunkara — Data Engineer</title>
+<meta name="description" content="Harika Sunkara — Data Engineer specializing in lakehouse architecture, batch & streaming pipelines, and ML-ready datasets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1B1E;
+    --surface: #16262B;
+    --surface-2: #1C2E33;
+    --line: rgba(232,228,217,0.12);
+    --text: #E8E4D9;
+    --text-dim: #9FAFAE;
+    --bronze: #B5651D;
+    --silver: #9FB4B8;
+    --gold: #D8AE3F;
+    --bronze-glow: rgba(181,101,29,0.18);
+    --silver-glow: rgba(159,180,184,0.16);
+    --gold-glow: rgba(216,174,63,0.18);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(15,27,30,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-brand{font-family:var(--mono);font-size:13px;letter-spacing:0.05em;color:var(--gold);}
+  .nav-links{display:flex;gap:28px;list-style:none;font-family:var(--mono);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;}
+  .nav-links a{text-decoration:none;color:var(--text-dim);transition:color .2s;position:relative;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+  @media(max-width:720px){.nav-links{display:none;}}
+
+  /* HERO */
+  header.hero{padding:96px 0 64px;position:relative;}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;color:var(--silver);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:20px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--silver);display:inline-block;}
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(40px,7vw,76px);
+    line-height:1.03;
+    letter-spacing:-0.01em;
+    margin-bottom:18px;
+  }
+  .role-line{
+    font-family:var(--display);
+    font-size:clamp(18px,2.4vw,24px);
+    color:var(--text-dim);
+    font-weight:500;
+    margin-bottom:28px;
+  }
+  .contact-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px;}
+  .chip{
+    font-family:var(--mono);font-size:12.5px;
+    border:1px solid var(--line);
+    padding:7px 14px;border-radius:999px;
+    color:var(--text-dim);
+    text-decoration:none;transition:border-color .2s,color .2s;
+  }
+  .chip:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* PIPELINE — signature element */
+  .pipeline{
+    display:flex;align-items:stretch;gap:0;
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    background:var(--surface);
+  }
+  .stage{
+    flex:1;padding:26px 20px;position:relative;
+    opacity:0; transform:translateY(14px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .stage.in{opacity:1;transform:translateY(0);}
+  .stage:not(:last-child){border-right:1px solid var(--line);}
+  .stage-label{
+    font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;
+    margin-bottom:8px;display:block;
+  }
+  .stage-raw .stage-label{color:var(--text-dim);}
+  .stage-bronze .stage-label{color:var(--bronze);}
+  .stage-silver .stage-label{color:var(--silver);}
+  .stage-gold .stage-label{color:var(--gold);}
+  .stage-desc{font-size:13.5px;color:var(--text-dim);}
+  .stage-raw{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);}
+  .stage-bronze{background:linear-gradient(180deg, var(--bronze-glow), transparent);}
+  .stage-silver{background:linear-gradient(180deg, var(--silver-glow), transparent);}
+  .stage-gold{background:linear-gradient(180deg, var(--gold-glow), transparent);}
+  .stage-icon{width:22px;height:22px;margin-bottom:14px;}
+  .arrow{
+    display:flex;align-items:center;justify-content:center;
+    width:0;color:var(--text-dim);font-size:14px;position:relative;z-index:2;
+  }
+  @media(max-width:760px){
+    .pipeline{flex-direction:column;}
+    .stage:not(:last-child){border-right:none;border-bottom:1px solid var(--line);}
+  }
+
+  section{padding:72px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;}
+  .section-num{font-family:var(--mono);font-size:13px;color:var(--gold);}
+  h2{font-family:var(--display);font-size:clamp(26px,3.4vw,34px);font-weight:600;letter-spacing:-0.01em;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* SUMMARY */
+  .summary-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;}
+  .summary-text p{color:var(--text-dim);font-size:16px;margin-bottom:16px;max-width:60ch;}
+  .summary-text strong{color:var(--text);font-weight:600;}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .stat{background:var(--surface);padding:22px 20px;}
+  .stat-num{font-family:var(--display);font-size:28px;font-weight:700;color:var(--gold);}
+  .stat-label{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;}
+  @media(max-width:800px){.summary-grid{grid-template-columns:1fr;}}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+  .skill-card{
+    border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--surface);
+    transition:border-color .25s, transform .25s;
+  }
+  .skill-card:hover{border-color:var(--silver);transform:translateY(-3px);}
+  .skill-cat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:10px;}
+  .skill-items{font-size:13.5px;color:var(--text-dim);line-height:1.7;}
+
+  /* EXPERIENCE */
+  .job{margin-bottom:64px;}
+  .job:last-child{margin-bottom:0;}
+  .job-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px;}
+  .job-title{font-family:var(--display);font-size:20px;font-weight:600;}
+  .job-meta{font-family:var(--mono);font-size:12px;color:var(--text-dim);}
+  .job-sub{font-family:var(--mono);font-size:12.5px;color:var(--silver);margin-bottom:22px;}
+  .etl-stages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:16px;}
+  .etl-stage{background:var(--surface);padding:22px;}
+  .etl-stage h4{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;}
+  .etl-stage.bronze h4{color:var(--bronze);}
+  .etl-stage.silver h4{color:var(--silver);}
+  .etl-stage.gold h4{color:var(--gold);}
+  .etl-stage ul{list-style:none;font-size:13.5px;color:var(--text-dim);}
+  .etl-stage li{margin-bottom:10px;padding-left:14px;position:relative;}
+  .etl-stage li::before{content:'—';position:absolute;left:0;color:var(--text-dim);opacity:0.5;}
+  .etl-stage.gold li strong{color:var(--gold);font-weight:600;}
+  @media(max-width:780px){.etl-stages{grid-template-columns:1fr;}}
+  .env-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .env-tag{font-family:var(--mono);font-size:11px;color:var(--text-dim);border:1px solid var(--line);padding:4px 10px;border-radius:6px;}
+
+  /* EDUCATION */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .edu-card{border:1px solid var(--line);border-radius:12px;padding:24px;background:var(--surface);}
+  .edu-card h3{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:6px;}
+  .edu-card p{font-size:13.5px;color:var(--text-dim);}
+  .edu-card .badge{font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;display:inline-block;}
+  @media(max-width:700px){.edu-grid{grid-template-columns:1fr;}}
+
+  /* FOOTER */
+  footer{padding:64px 0 48px;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;flex-direction:column;align-items:flex-start;gap:20px;}
+  footer h2{font-size:clamp(24px,3vw,32px);}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:12px 22px;border-radius:8px;
+    border:1px solid var(--gold);color:var(--gold);text-decoration:none;
+    transition:background .2s,color .2s;
+  }
+  .btn:hover{background:var(--gold);color:var(--bg);}
+  .btn.ghost{border-color:var(--line);color:var(--text-dim);}
+  .btn.ghost:hover{border-color:var(--text-dim);background:transparent;color:var(--text);}
+  .copyright{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);margin-top:24px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    .stage, .reveal{opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-brand">HS / data-engineer</div>
+    <ul class="nav-links">
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Worcester, MA</div>
+    <h1>Harika Sunkara</h1>
+    <div class="role-line">Data Engineer — lakehouse platforms, batch &amp; streaming pipelines, ML-ready data</div>
+    <div class="contact-chips">
+      <a class="chip" href="mailto:harikas1910@gmail.com">harikas1910@gmail.com</a>
+      <a class="chip" href="tel:+15204997730">(520) 499-7730</a>
+      <a class="chip" href="#" id="linkedin-chip" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <span class="chip">Databricks Certified Data Engineer Associate</span>
+    </div>
+
+    <div class="pipeline" id="pipeline">
+      <div class="stage stage-raw">
+        <span class="stage-label">Raw</span>
+        <p class="stage-desc">Claims, portfolios, clinical &amp; market data from SQL Server, APIs, Kafka, and flat files.</p>
+      </div>
+      <div class="stage stage-bronze">
+        <span class="stage-label">Bronze</span>
+        <p class="stage-desc">Ingested as-is into ADLS Gen2 &amp; S3 — schema captured, nothing discarded.</p>
+      </div>
+      <div class="stage stage-silver">
+        <span class="stage-label">Silver</span>
+        <p class="stage-desc">Validated, deduplicated, reconciled with PySpark &amp; Delta Lake.</p>
+      </div>
+      <div class="stage stage-gold">
+        <span class="stage-label">Gold</span>
+        <p class="stage-desc">Analytics- and ML-ready datasets, delivered to dashboards &amp; model training.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="summary">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>Summary</h2></div>
+    <div class="summary-grid">
+      <div class="summary-text reveal">
+        <p>Data Engineer with <strong>2 years</strong> designing and building scalable batch and streaming pipelines and cloud-based lakehouse platforms across <strong>healthcare</strong> and <strong>financial services</strong>.</p>
+        <p>Proficient in <strong>Python, PySpark, SQL, and Scala</strong> for large-scale transformation, distributed processing, and orchestration on <strong>Azure Databricks, AWS Glue, and Apache Airflow</strong>. Builds Medallion (Bronze/Silver/Gold) architectures on Delta Lake and delivers analytics-ready, AI/ML-ready datasets to downstream teams.</p>
+        <p>Hands-on with data quality, governance, and security — schema validation, reconciliation, RBAC, encryption, auditing — for regulated, compliance-sensitive environments. Partners closely with data scientists and ML engineers on feature-ready datasets and MLflow-tracked experimentation.</p>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><div class="stat-num">5M+</div><div class="stat-label">Healthcare records processed</div></div>
+        <div class="stat"><div class="stat-num">35%</div><div class="stat-label">Faster daily processing (CDC)</div></div>
+        <div class="stat"><div class="stat-num">25%</div><div class="stat-label">Fewer data quality issues</div></div>
+        <div class="stat"><div class="stat-num">30%</div><div class="stat-label">Faster Spark execution</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>Technical Skills</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-cat">Cloud Platforms</div>
+        <div class="skill-items">Azure (ADF, Databricks, ADLS Gen2, Synapse Analytics, Azure SQL DB), AWS (S3, Glue, Redshift, Lambda, CloudWatch, IAM), GCP (BigQuery)</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-items">Python, SQL, Scala, PySpark, Spark SQL</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Big Data &amp; Streaming</div>
+        <div class="skill-items">Apache Spark, Spark Structured Streaming, Delta Lake, Kafka, Azure Event Hubs</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Databases &amp; Warehousing</div>
+        <div class="skill-items">Snowflake, SQL Server, PostgreSQL, Oracle, MySQL, Redshift, Synapse, Dimensional Modeling, Star Schema</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">ETL/ELT &amp; Orchestration</div>
+        <div class="skill-items">AWS Glue, DBT, Apache Airflow, CDC, Incremental Loads, Pipeline Orchestration</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">AI/ML Data Engineering</div>
+        <div class="skill-items">Feature Engineering, Feature Store Concepts, ML Dataset Prep, MLflow, MLOps Concepts</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Data Quality &amp; Governance</div>
+        <div class="skill-items">Validation, Reconciliation, Schema Enforcement &amp; Evolution, Metadata Management, Lineage, Auditing, ACID Transactions</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Performance &amp; Monitoring</div>
+        <div class="skill-items">Spark Tuning, Partitioning, Caching, Query Optimization, Azure Monitor, CloudWatch, Prometheus, Grafana</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">BI &amp; Reporting</div>
+        <div class="skill-items">Power BI, KPI Reporting, Dashboard Data Preparation</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Tools &amp; Practices</div>
+        <div class="skill-items">Git, Azure DevOps, CI/CD, Agile, Code Reviews, Unit Testing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Experience</h2></div>
+
+    <div class="job reveal">
+      <div class="job-head">
+        <div class="job-title">Step Next Pvt. Ltd. — Data Engineer</div>
+        <div class="job-meta">Jan 2022 – Dec 2023 · Hyderabad, India</div>
+      </div>
+      <div class="job-sub">Healthcare Analytics Lakehouse Platform</div>
+      <div class="etl-stages">
+        <div class="etl-stage bronze">
+          <h4>Bronze — Raw Intake</h4>
+          <ul>
+            <li>Batch ETL for medical claims, member enrollment, provider &amp; clinical data from SQL Server, APIs, and flat files</li>
+            <li>Built with Azure Databricks, PySpark, Azure Data Factory, and AWS Glue</li>
+          </ul>
+        </div>
+        <div class="etl-stage silver">
+          <h4>Silver — Build &amp; Refine</h4>
+          <ul>
+            <li>Schema validation, deduplication, and transformation before loading into Snowflake</li>
+            <li>Bronze/Silver/Gold layers with Delta Lake on ADLS Gen2 &amp; S3</li>
+            <li>Near real-time streaming with Kafka, Spark Structured Streaming, Azure Event Hubs</li>
+          </ul>
+        </div>
+        <div class="etl-stage gold">
+          <h4>Gold — Impact</h4>
+          <ul>
+            <li>CDC-based incremental pipelines cut daily processing time by <strong>35%</strong></li>
+            <li>Validation &amp; reconciliation reduced quality issues by <strong>25%</strong></li>
+            <li>Feature-ready datasets for readmission risk &amp; cost forecasting, tracked in MLflow</li>
+          </ul>
+        </div>
+      </div>
+      <div class="env-tags">
+        <span class="env-tag">Azure Databricks</span><span class="env-tag">PySpark</span><span class="env-tag">Delta Lake</span>
+        <span class="env-tag">Azure Data Factory</span><span class="env-tag">Kafka</span><span class="env-tag">Snowflake</span>
+        <span class="env-tag">AWS Glue</span><span class="env-tag">DBT</span><span class="env-tag">MLflow</span><span class="env-tag">HIPAA</span>
+      </div>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-head">
+        <div class="job-title">Step Next Pvt. Ltd. — Data Engineer</div>
+        <div class="job-meta">Jan 2022 – Dec 2023 · Hyderabad, India</div>
+      </div>
+      <div class="job-sub">Financial Analytics &amp; Reporting Platform</div>
+      <div class="etl-stages">
+        <div class="etl-stage bronze">
+          <h4>Bronze — Raw Intake</h4>
+          <ul>
+            <li>Batch ETL for trading transactions, customer portfolio, and market data across multiple source systems</li>
+            <li>Built with Azure Databricks, PySpark, Azure Data Factory, AWS Glue</li>
+          </ul>
+        </div>
+        <div class="etl-stage silver">
+          <h4>Silver — Build &amp; Refine</h4>
+          <ul>
+            <li>Bronze/Silver/Gold Delta Lake layers standardized trading &amp; portfolio data</li>
+            <li>Dimensional models (fact/dimension) in Azure Synapse for portfolio &amp; risk analytics</li>
+            <li>Airflow DAGs orchestrating Databricks, Synapse, Snowflake, and AWS</li>
+          </ul>
+        </div>
+        <div class="etl-stage gold">
+          <h4>Gold — Impact</h4>
+          <ul>
+            <li>Streaming pipelines cut data latency from <strong>hours to minutes</strong></li>
+            <li>Data quality frameworks reduced reporting discrepancies by <strong>25%</strong></li>
+            <li>Spark tuning (partitioning, caching, broadcast joins) delivered <strong>~30%</strong> faster execution</li>
+          </ul>
+        </div>
+      </div>
+      <div class="env-tags">
+        <span class="env-tag">Azure Databricks</span><span class="env-tag">Spark SQL</span><span class="env-tag">Delta Lake</span>
+        <span class="env-tag">Azure Synapse Analytics</span><span class="env-tag">Kafka</span><span class="env-tag">Apache Airflow</span>
+        <span class="env-tag">AWS Glue</span><span class="env-tag">Power BI</span><span class="env-tag">CI/CD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Education &amp; Certification</h2></div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <span class="badge">Master of Science</span>
+        <h3>Information Science — Machine Learning</h3>
+        <p>University of Arizona, Tucson, AZ · Dec 2025</p>
+      </div>
+      <div class="edu-card reveal">
+        <span class="badge">Certification</span>
+        <h3>Databricks Certified Data Engineer Associate</h3>
+        <p>Validated expertise in building production Delta Lake pipelines on Databricks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's talk pipelines.</h2>
+    <p style="color:var(--text-dim);max-width:50ch;">Open to Data Engineer roles across batch, streaming, and lakehouse platform work.</p>
+    <div class="footer-links">
+      <a class="btn" href="mailto:harikas1910@gmail.com">Email me</a>
+      <a class="btn ghost" href="tel:+15204997730">Call</a>
+      <a class="btn ghost" href="#" id="linkedin-chip-2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="copyright">© 2026 Harika Sunkara. Built with data, not templates.</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Hero pipeline sequential reveal
+  const stages = document.querySelectorAll('#pipeline .stage');
+  stages.forEach((s,i)=>{
+    setTimeout(()=>s.classList.add('in'), 180 + i*180);
+  });
+
+  // NOTE: Replace '#' below with the actual LinkedIn profile URL before publishing.
+  document.querySelectorAll('#linkedin-chip, #linkedin-chip-2').forEach(el=>{
+    el.href = 'https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE';
+  });
+</script>
+
+</body>
+</html>
